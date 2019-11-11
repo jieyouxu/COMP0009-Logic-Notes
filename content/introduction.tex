@@ -5,8 +5,116 @@
 Formal logic consists of three parts:
 
 \begin{enumerate}
-    \item \textit{Syntax}: the grammar of the logic language.
-    \item \textit{Semantics}: how the logic language is to be interpreted.
-    \item \textit{Inference} or \textit{proof system}: how true statements are
+    \item \Keyword{Syntax}: the grammar of the logic language.
+    \item \Keyword{Semantics}: how the language is to be interpreted.
+    \item \Keyword{Inference} or \Keyword{Proof System}: how true statements are
         to be proved through reasoning.
 \end{enumerate}
+
+\section{Propositional Logic}
+
+\subsection{Grammar}
+
+The grammar for \Keyword{Propositional logic} is given by Figure \ref{fig:propositional_logic_bnf}.
+
+\begin{figure}[H]
+    \centering
+    \begin{grammar}
+    <formula> ::= $($ <formula> <binary-op> <formula> $)$
+        \alt $\neg$ <formula>
+        \alt <proposition>
+    
+    <binary-op> ::= $\land$ | $\lor$ | $\to$
+    
+    <proposition> ::= $p$ | $q$ | $r$ | $\cdots$
+    \end{grammar}
+    \caption{BNF Grammar for Propositional Logic.}
+    \label{fig:propositional_logic_bnf}
+\end{figure}
+
+Each $\Angled{\textit{proposition}}$ is a variable from a set of
+\Keyword{variables} $\mathcal{V}$ that is assumed to be infinite. That is, $p, q, r \in \mathcal{V}$.
+
+The \textit{binary operators} ($\Angled{\textit{binary-op}}$) $\land$, $\lor$ and $\to$ are also called \Keyword{connectives}.
+
+\begin{definition}[Literal]
+    A \Keyword{literal} is either a \textit{proposition} or 
+    its \textit{negation}.
+\end{definition}
+
+\begin{example}[Literal]
+    $p$ and $\neg q$ are both literals but $(p \land q)$ is not.
+\end{example}
+
+\begin{definition}[Main Connective].
+    The \Keyword{main connective} of a propositional formula $\phi$ is defined to be the connective with the \textit{largest scope}.
+\end{definition}
+
+\begin{example}[Main Connective]
+    Let
+    \begin{equation*}
+        \phi \DefAs ((p \land q) \lor (q \to r))
+    \end{equation*}
+    
+    Then $\lor$ is the \textit{main connective} since it has the largest scope.
+\end{example}
+
+\subsection{Semantics}
+
+To interpret propositional formulas, we need \Keyword{valuations} to map propositions to $\Set{ \top, \bot }$ (\textit{true} or \textit{false}, respectively).
+
+\begin{definition}[Valuation]
+    A \Keyword{valuation} $v$ maps any proposition $p \in \mathcal{V}$ to $\Set{ \top, \bot }$
+    
+    \begin{equation}
+        v \colon \mathcal{V} \to \Set{ \top, \bot }
+    \end{equation}
+    
+    $v$ satisfies the properties:
+    
+    \begin{align}
+        v(\neg \phi) = \top &\WIff v(\phi) = \bot \\
+        v(\phi \land \psi) = \top &\WIff v(\phi) = v(\psi) = \top \\
+        v(\phi \lor \psi) = \top &\WIff v(\phi) = \top \Stext{or} v(\psi) = \top \\
+        v(\phi \to \psi) = \top &\WIff = v(\phi) = \bot \Stext{or} v(\psi) = \top
+    \end{align}
+\end{definition}
+
+\subsection{Validity, Satisfiability, Equivalence}
+
+\begin{definition}[Valid]
+    A formula $\phi$ is \Keyword{valid} iff
+    
+    \begin{equation}
+        \Forall v \in \text{Valuations} \colon v(\phi) = \top
+    \end{equation}
+    
+    That is, $\phi$ must evaluate to true when interpreted by \textit{any} valuation $v \colon \mathcal{V} \to \Set{\top, \bot}$.
+\end{definition}
+
+\begin{definition}[Satisfiable]
+    A formula $\phi$ is \Keyword{satisfiable} iff
+    
+    \begin{equation}
+        \Exists v \in \text{Valuations} \colon v(\phi) = \top
+    \end{equation}
+    
+    That is, $\phi$ must evaluate to true for \textit{at least one} valuation $v$.
+\end{definition}
+
+\begin{definition}[Equivalent]
+    The formulas $\phi$ and $\psi$ are \Keyword{logically equivalent}, denoted $\phi \equiv \psi$, iff
+    
+    \begin{equation}
+        \Forall v \in \text{Valuations} \colon v(\phi) = v(\psi)
+    \end{equation}
+\end{definition}
+
+\begin{remark}
+    Every \textit{valid} formula is \textit{satisfiable}, but not the converse:
+    
+    \begin{itemize}
+        \item Validity $\to$ Satisfiability.
+        \item Satisfiability $\not\to$ Validity.
+    \end{itemize}
+\end{remark}

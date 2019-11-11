@@ -1,0 +1,23 @@
+% Keyword
+\newcommand{\Keyword}[1]{\textbf{#1}}
+
+% Paired angle brackets
+\newcommand{\Angled}[1]{\langle {#1} \rangle}
+
+% Defined-as
+\newcommand{\DefAs}{\coloneqq}
+
+% Sets
+\DeclarePairedDelimiterX\Set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
+
+% Bi-implication (double and wide)
+\DeclareRobustCommand\WIff{\;\Longleftrightarrow\;}
+% Bi-implication (thin and short)
+\newcommand{\Iff}{\leftrightarrow}
+
+% Spaced text in math mode
+\newcommand*{\Stext}[1]{\text{ #1 }}
+
+% Universal and Existential quantifiers
+\DeclareMathOperator{\Exists}{\exists}
+\DeclareMathOperator{\Forall}{\forall}

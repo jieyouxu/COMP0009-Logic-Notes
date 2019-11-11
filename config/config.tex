@@ -2,6 +2,9 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
+% Math symbols
+\usepackage{mathtools}
+
 % Bibliography
 \usepackage[style=trad-abbrv, giveninits=true]{biblatex}
 
@@ -20,8 +23,36 @@
 % Trees
 \usepackage{qtree}
 
+% BNF Grammars
+\usepackage[nounderscore]{syntax}
+
+\usepackage{fullpage}
+\usepackage{calc}
+\usepackage{syntax}
+
+\newlength{\myl}
+
+\newenvironment{indentgrammar}[1]
+    {\setlength{\myl}{\widthof{#1}+2em}
+    \grammarindent\the\myl
+    \begin{grammar}}
+    {\end{grammar}}
+
+% Theorems, Definitions, Lemmas, Corollaries
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+% Reset theorem numbering for each chapter.
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example} 
+
 % Floats
 \usepackage{float}
-
-% Concrete Fonts
-\usepackage[boldsans]{ccfonts}
