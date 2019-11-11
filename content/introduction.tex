@@ -21,13 +21,13 @@ The grammar for \Keyword{Propositional logic} is given by Figure
 \begin{figure}[H]
     \centering
     \begin{grammar}
-    <formula> ::= $($ <formula> <binary-op> <formula> $)$
-        \alt $\neg$ <formula>
+    <formula> ::= \lit{$($} <formula> <binary-op> <formula> \lit{$)$}
+        \alt \lit{$\neg$} <formula>
         \alt <proposition>
     
-    <binary-op> ::= $\land$ | $\lor$ | $\to$
+    <binary-op> ::= \lit{$\land$} | \lit{$\lor$} | \lit{$\to$} | \lit{$\Iff$}
     
-    <proposition> ::= $p$ | $q$ | $r$ | $\cdots$
+    <proposition> ::= \lit{$p$} | \lit{$q$} | \lit{$r$} | $\cdots$
     \end{grammar}
     \caption{BNF Grammar for Propositional Logic.}
     \label{fig:propositional_logic_bnf}
@@ -139,7 +139,7 @@ respectively).
     A \Keyword{first-order logic} language $L$ is a 3-tuple
 
     \begin{equation}
-        L \DefAs (\mathcal{C}, \mathcal{F}, \mathcal{P})
+        L \DefAs \Angled{\mathcal{C}, \mathcal{F}, \mathcal{P}}
     \end{equation}
 
     Where:
@@ -151,4 +151,95 @@ respectively).
         \item $\mathcal{P}$ is the non-empty set of \Keyword{predicate symbols}.
             Let $p^n$ denote predicate $p$ is of \Keyword{arity} $n$.
     \end{enumerate}
+    
+    And let $\mathcal{V}$ be the infinite set of \textit{variable symbols}.
+\end{definition}
+
+The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_bnf}.
+
+\begin{figure}[H]
+    \centering
+    \begin{grammar}
+    <formula> ::= \lit{$($} <formula>$_0$ <binary-op> <formula>$_1$ \lit{$)$}
+        \alt \lit{$\Forall$} $v$ \lit{$\colon$} <formula>
+            \quad\text{// where $v \in \mathcal{V}$}
+        \alt \lit{$\Exists$} $v$ \lit{$\colon$} <formula>
+            \quad\text{// where $v \in \mathcal{V}$}
+        \alt \lit{$\neg$} <formula>
+        \alt <atom>
+    
+    <binary-op> ::= \lit{$\land$} | \lit{$\lor$} | \lit{$\to$} | \lit{$\Iff$}
+    
+    <atom> ::= $p^n$ \lit{$($} <term>$_0$ \lit{,} <term>$_1$ \lit{,} 
+        $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$} \quad\text{// where $p^n \in \mathcal{P}$}
+    
+    <term> ::= $f^n$ \lit{$($} <term>$_0$ \lit{,} <term>$_1$ \lit{,} 
+            $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$} \quad\text{// where $f^n \in \mathcal{F}$}
+        \alt $c$ \quad\text{// where $c \in \mathcal{C}$}
+        \alt $v$ \quad\text{// where $v \in \mathcal{V}$}
+    \end{grammar}
+    \caption{BNF Grammar for First-Order Logic.}
+    \label{fig:first_order_logic_bnf}
+\end{figure}
+
+\begin{definition}[Arity]
+    The \Keyword{arity} of a \textit{predicate symbol} or a \textit{function symbol} is the
+    \textit{number of arguments} that the predicate or function symbol takes.
+    
+    \textit{Constant symbols} are of arity $0$ since they do not take arguments.
+\end{definition}
+
+\begin{definition}[Predicate Formula]
+    There are two types of \textit{predicate formula}, as specified in the BNF of Figure 
+    \ref{fig:first_order_logic_bnf}:
+    
+    \begin{enumerate}
+        \item \Keyword{Atomic} formula, of the form
+            \begin{equation}
+                R(\tau_0, \ldots, \tau_{n-1})
+            \end{equation}
+            
+            Where
+            \begin{itemize}
+                \item $\tau_{i}$ is some \textit{term} given $i < n$; and
+                \item $R \in \mathcal{P}$ is a \textit{predicate} of arity $n$.
+            \end{itemize}
+        \item \Keyword{Formula}, of the form
+            \begin{equation}
+                \phi \Coloneqq \mathrm{Atom} 
+                    \mid \neg \phi 
+                    \mid ( \phi \neg \phi' )
+                    \mid \Exists x \colon \phi
+            \end{equation}
+            
+            And we can define $\Forall x \colon \phi \equiv \neg \Exists x \colon \neg \phi$.
+    \end{enumerate}
+\end{definition}
+
+\subsection{Semantics}
+
+\begin{definition}[$L$-Structure]
+    A \Keyword{first-order structure} or a \Keyword{$L$-structure} is a 2-tuple
+    
+    \begin{equation}
+        L\text{-structure} \DefAs \Angled{D, I}
+    \end{equation}
+    
+    Where
+    \begin{enumerate}
+        \item $D$ is the \Keyword{domain}, a non-empty set; and
+        \item $I$ is the valuation function which interprets \textit{constants}, \textit{functions}
+            and \textit{predicates}.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Interpretation Function (Valuation)]
+    The type of the \Keyword{interpretation function} or \Keyword{valuation} $I$ which interprets
+    \textit{constants}, \textit{functions} and \textit{predicates} is given as
+    
+    \begin{align}
+        I    \colon &\ \mathcal{C} \to D \\
+        I(f) \colon &\ D^n \to D \quad\text{(iff $f \in \mathcal{F}$ is a $n$-ary function)} \\
+        I(R) \subseteq &\ D^n \quad\text{(iff $p \in \mathcal{R}$ is a $n$-ary predicate)}    
+    \end{align}
 \end{definition}
