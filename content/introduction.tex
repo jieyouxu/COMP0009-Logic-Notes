@@ -15,7 +15,8 @@ Formal logic consists of three parts:
 
 \subsection{Grammar}
 
-The grammar for \Keyword{Propositional logic} is given by Figure \ref{fig:propositional_logic_bnf}.
+The grammar for \Keyword{Propositional logic} is given by Figure 
+\ref{fig:propositional_logic_bnf}.
 
 \begin{figure}[H]
     \centering
@@ -33,9 +34,11 @@ The grammar for \Keyword{Propositional logic} is given by Figure \ref{fig:propos
 \end{figure}
 
 Each $\Angled{\textit{proposition}}$ is a variable from a set of
-\Keyword{variables} $\mathcal{V}$ that is assumed to be infinite. That is, $p, q, r \in \mathcal{V}$.
+\Keyword{variables} $\mathcal{V}$ that is assumed to be infinite. That is, 
+$p, q, r \in \mathcal{V}$.
 
-The \textit{binary operators} ($\Angled{\textit{binary-op}}$) $\land$, $\lor$ and $\to$ are also called \Keyword{connectives}.
+The \textit{binary operators} ($\Angled{\textit{binary-op}}$) $\land$, $\lor$ 
+and $\to$ are also called \Keyword{connectives}.
 
 \begin{definition}[Literal]
     A \Keyword{literal} is either a \textit{proposition} or 
@@ -47,7 +50,8 @@ The \textit{binary operators} ($\Angled{\textit{binary-op}}$) $\land$, $\lor$ an
 \end{example}
 
 \begin{definition}[Main Connective].
-    The \Keyword{main connective} of a propositional formula $\phi$ is defined to be the connective with the \textit{largest scope}.
+    The \Keyword{main connective} of a propositional formula $\phi$ is defined 
+    to be the connective with the \textit{largest scope}.
 \end{definition}
 
 \begin{example}[Main Connective]
@@ -61,10 +65,13 @@ The \textit{binary operators} ($\Angled{\textit{binary-op}}$) $\land$, $\lor$ an
 
 \subsection{Semantics}
 
-To interpret propositional formulas, we need \Keyword{valuations} to map propositions to $\Set{ \top, \bot }$ (\textit{true} or \textit{false}, respectively).
+To interpret propositional formulas, we need \Keyword{valuations} to map 
+propositions to $\Set{ \top, \bot }$ (\textit{true} or \textit{false}, 
+respectively).
 
 \begin{definition}[Valuation]
-    A \Keyword{valuation} $v$ maps any proposition $p \in \mathcal{V}$ to $\Set{ \top, \bot }$
+    A \Keyword{valuation} $v$ maps any proposition $p \in \mathcal{V}$ 
+    to $\Set{ \top, \bot }$
     
     \begin{equation}
         v \colon \mathcal{V} \to \Set{ \top, \bot }
@@ -75,8 +82,10 @@ To interpret propositional formulas, we need \Keyword{valuations} to map proposi
     \begin{align}
         v(\neg \phi) = \top &\WIff v(\phi) = \bot \\
         v(\phi \land \psi) = \top &\WIff v(\phi) = v(\psi) = \top \\
-        v(\phi \lor \psi) = \top &\WIff v(\phi) = \top \Stext{or} v(\psi) = \top \\
-        v(\phi \to \psi) = \top &\WIff = v(\phi) = \bot \Stext{or} v(\psi) = \top
+        v(\phi \lor \psi) = \top 
+            &\WIff v(\phi) = \top \Stext{or} v(\psi) = \top \\
+        v(\phi \to \psi) = \top 
+            &\WIff = v(\phi) = \bot \Stext{or} v(\psi) = \top
     \end{align}
 \end{definition}
 
@@ -89,7 +98,8 @@ To interpret propositional formulas, we need \Keyword{valuations} to map proposi
         \Forall v \in \text{Valuations} \colon v(\phi) = \top
     \end{equation}
     
-    That is, $\phi$ must evaluate to true when interpreted by \textit{any} valuation $v \colon \mathcal{V} \to \Set{\top, \bot}$.
+    That is, $\phi$ must evaluate to true when interpreted by \textit{any} 
+    valuation $v \colon \mathcal{V} \to \Set{\top, \bot}$.
 \end{definition}
 
 \begin{definition}[Satisfiable]
@@ -99,11 +109,13 @@ To interpret propositional formulas, we need \Keyword{valuations} to map proposi
         \Exists v \in \text{Valuations} \colon v(\phi) = \top
     \end{equation}
     
-    That is, $\phi$ must evaluate to true for \textit{at least one} valuation $v$.
+    That is, $\phi$ must evaluate to true for \textit{at least one} valuation 
+    $v$.
 \end{definition}
 
 \begin{definition}[Equivalent]
-    The formulas $\phi$ and $\psi$ are \Keyword{logically equivalent}, denoted $\phi \equiv \psi$, iff
+    The formulas $\phi$ and $\psi$ are \Keyword{logically equivalent}, denoted 
+    $\phi \equiv \psi$, iff
     
     \begin{equation}
         \Forall v \in \text{Valuations} \colon v(\phi) = v(\psi)
