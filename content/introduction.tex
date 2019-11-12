@@ -289,8 +289,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
         \mathcal{S}, \mathcal{A} \models \phi \WIff \mathcal{S}, \mathcal{A} \models \psi
     \end{equation*}
     
-    Denote that $\mathcal{S}, \mathcal{A} \models \phi$ is true if and only if
-    $\mathcal{S}, \mathcal{A} \models \psi$ is true.
+    Denote that $\mathcal{S}, \mathcal{A} \models \phi$ is valid if and only if
+    $\mathcal{S}, \mathcal{A} \models \psi$ is valid.
 \end{remark}
 
 \begin{definition}[Evaluating Formulas]
@@ -319,3 +319,45 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
             \Stext{for all} d \in D
     \end{align}
 \end{definition}
+
+\begin{definition}[Validity]
+    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure and $\phi$ be a
+    formula. Then
+    
+    \begin{itemize}
+        \item $\mathcal{S} \models \phi$ \quad means $\phi$ is \Keyword{valid in structure 
+            $\mathcal{S}$} iff:
+            \begin{itemize}
+                \item For \textit{all} assignments $\mathcal{A} \colon \mathcal{V} \to D$,
+                    we have $\mathcal{S}, \mathcal{A} \models \phi$.
+            \end{itemize}
+        \item $\models \phi$ \quad means $\phi$ is \Keyword{valid} iff:
+            \begin{itemize}
+                \item For \textit{all} $L$-structures $S$, we have 
+                    $\mathcal{S} \models \phi$.
+            \end{itemize}
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Satisfiability]
+    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure and $\phi$ be a
+    formula. Then
+    
+    \begin{itemize}
+        \item $\phi$ is \Keyword{satisfiable in $\mathcal{S}$} iff:
+            \begin{itemize}
+                \item There is \textit{some} assignment 
+                    $\mathcal{A} \colon \mathcal{V} \to D$ making 
+                    $\mathcal{S}, \mathcal{A} \models \phi$ valid.
+            \end{itemize}
+        \item $\phi$ is \Keyword{satisfiable} iff:
+            \begin{itemize}
+                \item There is \textit{some} $L$-structure $\mathcal{S}$ in which
+                    it is \textit{satisfiable}.
+            \end{itemize}
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    $\phi$ is \Keyword{invalid} $\WIff$ $\neg \phi$ is \Keyword{satisfiable}.
+\end{remark}
