@@ -1,32 +1,35 @@
 \chapter{Proof Systems}
 
 \begin{definition}[Proof System]
-    A \Keyword{proof system} is used to determine the \textit{validity} of formulas.
+    A \Keyword{proof system} is used to determine the \textit{validity} of 
+    formulas.
 \end{definition}
 
 \begin{remark}
-    A trivial system would be to generate the truth table for some formula $\phi$ and
-    check all rows yield $\top$. But for $n$ variables we will need $2^n$ rows which
-    explodes exponentially.
+    A trivial system would be to generate the truth table for some formula 
+    $\phi$ and check all rows yield $\top$. But for $n$ variables we will need 
+    $2^n$ rows which explodes exponentially.
     
     Thus, we need another system, which analyzes the syntax of the formula to
     determine its validity.
     
     Changes on syntactical level may not be semantics-preserving. To ensure that
-    syntactical transformations are semantics-preserving, it is critical that the
-    proof system used is both \Keyword{sound} and \Keyword{complete}.
+    syntactical transformations are semantics-preserving, it is critical that 
+    the proof system used is both \Keyword{sound} and \Keyword{complete}.
     
     Let
     \begin{itemize}
         \item $\models \phi$ \quad denote $\phi$ is \textit{valid}.
-        \item $\vdash \phi$ \quad denote there exists a \textit{proof} of $\phi$.
+        \item $\vdash \phi$ \quad denote there exists a \textit{proof} of 
+            $\phi$.
     \end{itemize}
 \end{remark}
 
 \section{Soundness and Completeness}
 
 \begin{definition}[Soundness]
-    A proof system is \Keyword{sound} iff it can \textit{only} prove \textit{valid} formulas.
+    A proof system is \Keyword{sound} iff it can \textit{only} prove 
+    \textit{valid} formulas.
     
     \begin{equation}
         \vdash \phi \implies \models \phi
@@ -43,7 +46,8 @@
 
 \section{Axiomatic Proof Systems}
 
-Let us define a simple language \textsc{ImpNeg} based on a subset of propositional language.
+Let us define a simple language \textsc{ImpNeg} based on a subset of 
+propositional language.
 
 \begin{definition}[\textsc{ImpNeg}]
     Let \textsc{ImpNeg} be a propositional language with only
@@ -84,8 +88,8 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
             \RightLabel{(Name of Inference Rule)}
             \QuaternaryInfC{$\psi$}
         \end{prooftree}
-        \caption{Form of Inference Rules. Any $\phi_i$ is a \textit{premise} and $\psi$ 
-            is the \textit{conclusion}.}
+        \caption{Form of Inference Rules. Any $\phi_i$ is a \textit{premise} and
+            $\psi$ is the \textit{conclusion}.}
         \label{fig:inference_rule}
     \end{figure}
 \end{definition}
@@ -101,8 +105,8 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
             \RightLabel{(Modus Ponens)}
             \BinaryInfC{$\psi$}
         \end{prooftree}
-        \caption{Modus Ponens. When both $\phi$ and $(\phi \to \psi)$ has been proved
-            then $\psi$ can be derived.}
+        \caption{Modus Ponens. When both $\phi$ and $(\phi \to \psi)$ has been 
+            proved then $\psi$ can be derived.}
         \label{fig:modus_ponens}
     \end{figure}
 \end{definition}
@@ -117,14 +121,15 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
     Such that for formulas $\phi_i$ with $i \le n$, $\phi_i$ is either:
     \begin{enumerate}
         \item An instance of an \textit{axiom}; or
-        \item Derived by \textit{modus ponens} from $\phi_j$, $\phi_k$ for some $j, k < i$.
+        \item Derived by \textit{modus ponens} from $\phi_j$, $\phi_k$ for some 
+            $j, k < i$.
             \begin{itemize}
                 \item For instance, if $\phi_k = (\phi_j \to \phi_i)$.
             \end{itemize}
     \end{enumerate}
     
-    Given that such proof exists, then $\phi_n$ is a \Keyword{theorem} and may be denoted
-    as
+    Given that such proof exists, then $\phi_n$ is a \Keyword{theorem} and may 
+    be denoted as
     \begin{equation}
         \vdash \phi_n
     \end{equation}
@@ -147,10 +152,11 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
     \end{align*}
 \end{example}
 
-\begin{definition}[Axiom Schemas for Propositional Logic]\label{axi_sch:prop_logic}
-    To extend \textsc{ImpNeg} to cover propositional language, we add new axiom schemas
-    to that of Definition \ref{axi_sch:prop_logic} to handle \textit{double negation}, 
-    \textit{disjunction} and \textit{conjunction}.
+\begin{definition}[Axiom Schemas for Propositional Logic]
+    \label{axi_sch:prop_logic}
+    To extend \textsc{ImpNeg} to cover propositional language, we add new axiom
+    schemas to that of Definition \ref{axi_sch:prop_logic} to handle
+    \textit{double negation}, \textit{disjunction} and \textit{conjunction}.
     
     \begin{enumerate}
         \item \Keyword{IV}: $(p \to \neg \neg p)$ and $(\neg \neg p \to q)$
@@ -162,8 +168,8 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
 \begin{definition}[Proof with Assumptions]
     Let $\Gamma$ denote the set of \Keyword{assumptions}.
     
-    Then the existence of a proof of $\phi$ using \textit{assumptions} from $\Gamma$
-    is denoted as
+    Then the existence of a proof of $\phi$ using \textit{assumptions} from 
+    $\Gamma$ is denoted as
     
     \begin{equation}
         \Gamma \vdash \phi
@@ -180,7 +186,8 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
     \begin{enumerate}
         \item An instance of an \textit{axiom schema}; or
         \item An \textit{assumption} $\phi_i \in \Gamma$; or
-        \item Obtained from $\phi_j, \phi_k$ given $j, k < i$ via \textit{modus ponens}.
+        \item Obtained from $\phi_j, \phi_k$ given $j, k < i$ via 
+            \textit{modus ponens}.
     \end{enumerate}
 \end{definition}
 
@@ -199,8 +206,8 @@ To check \Keyword{soundness} of axiomatic proof systems, we check that:
                     \BinaryInfC{$\psi$}
                 \end{prooftree}
         \end{itemize}
-    \item Deduce that all \textit{provable} formulas are valid by \textit{induction}
-        on the \textit{length} of proofs, such that
+    \item Deduce that all \textit{provable} formulas are valid by 
+        \textit{induction} on the \textit{length} of proofs, such that
         \begin{equation}
             \vdash \phi \implies \models \phi
         \end{equation}
@@ -214,14 +221,15 @@ that:
 \end{equation}
 
 \begin{remark}
-    Note that axiomatic proof systems are \textit{not} guaranteed to \textit{terminate}.
+    Note that axiomatic proof systems are \textit{not} guaranteed to 
+    \textit{terminate}.
 \end{remark}
 
 \section{Propositional Tableaux}
 
 \begin{definition}[Tableau]
-    A \Keyword{tableau} can determine the \textit{satisfiability} of formula $\phi$,
-    by
+    A \Keyword{tableau} can determine the \textit{satisfiability} of formula
+    $\phi$ by
     
     \begin{itemize}
         \item \textit{Decomposing} the formula using rules until only
@@ -229,23 +237,24 @@ that:
         \item A tableau will \textit{close} or not depending on the
             nature of the \textit{literals}.
         \begin{itemize}
-            \item If a tableau \textit{closes} then $\phi$ is \textit{unsatisfiable}.
+            \item If a tableau \textit{closes} then $\phi$ is
+                \textit{unsatisfiable}.
             \item If a tableau remains \textit{open} then $\phi$ is
                 \textit{satisfiable}.
         \end{itemize}
     \end{itemize}
     
-    A \Keyword{tableau} $T$ is a \textit{binary tree} where every node is labelled
-    by a formula.
+    A \Keyword{tableau} $T$ is a \textit{binary tree} where every node is 
+    labelled by a formula.
     
     \begin{itemize}
-        \item Initially, $T$ has only the root node labelled by the target formula
-            $\phi$ for which we are testing satisfiability.
+        \item Initially, $T$ has only the root node labelled by the target 
+            formula $\phi$ for which we are testing satisfiability.
         \item Every non-literal formula in $T$ gets \textit{expanded} and
             \textit{ticked}.
         \item If a \textit{branch} of $T$ contains both the literal $\psi$ 
-            \textit{and} its negation $\neg \psi$ then the branch \textit{closes};
-            otherwise, the branch remains \textit{open}.
+            \textit{and} its negation $\neg \psi$ then the branch
+            \textit{closes}; otherwise, the branch remains \textit{open}.
         \item If \textit{every} branch of $T$ is \textit{closed} then $T$
             \textit{closes}; otherwise, $T$ remains \textit{open}.
     \end{itemize}
@@ -256,8 +265,8 @@ that:
 There are two types of expansion rules for Propositional Tableaux.
 
 \begin{definition}[$\alpha$-Formula Expansion]
-    $\alpha$-formulas are formulas with \textit{conjunction} as the main connective,
-    either directly or by expansion:
+    $\alpha$-formulas are formulas with \textit{conjunction} as the main
+    connective, either directly or by expansion:
     
     \begin{enumerate}
         \item $(\phi \land \psi)$
@@ -292,7 +301,8 @@ There are two types of expansion rules for Propositional Tableaux.
                     ]
                 \end{forest}
             \end{equation}
-            De Morgan's law. $\neg (\phi \lor \psi) \equiv \neg \phi \land \neg \psi$.
+            De Morgan's law. $\neg (\phi \lor \psi) \equiv 
+            \neg \phi \land \neg \psi$.
         \item $\neg (\phi \to \psi)$
             \begin{equation}
                 \begin{forest}
@@ -310,8 +320,8 @@ There are two types of expansion rules for Propositional Tableaux.
 \end{definition}
 
 \begin{definition}[$\beta$-Formula Expansion]
-    $\beta$-formulas are formulas with \textit{disjunction} as the main connective,
-    either directly or by expansion:
+    $\beta$-formulas are formulas with \textit{disjunction} as the main 
+    connective, either directly or by expansion:
     
     \begin{enumerate}
         \item $(\phi \lor \psi)$
