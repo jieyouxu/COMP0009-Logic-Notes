@@ -129,3 +129,90 @@ Let us define a simple language \textsc{ImpNeg} based on a subset of proposition
         \vdash \phi_n
     \end{equation}
 \end{definition}
+
+\begin{example}
+    Let us try to prove $\vdash (p \to p)$ with the axiom schema.
+    
+    \begin{align*}
+        &((p \to ((p \to p) \to p)) \to ((p \to (p \to p)) \to (p \to p)))
+            &\quad\text{ (1) (Axiom $\mathbf{II}$) } \\
+        &(p \to ((p \to p) \to p))
+            &\quad\text{ (2) (Axiom $\mathbf{I}$) } \\
+        &((p \to (p \to p)) \to (p \to p))
+            &\quad\text{ (3) (M.P. from (1) and (2)) } \\
+        &(p \to (p \to p))
+            &\quad\text{ (4) (Axiom $\mathbf{I}$) } \\
+        &(p \to p)
+            &\quad\text{ (5) (M.P. from (3) and (4)) }
+    \end{align*}
+\end{example}
+
+\begin{definition}[Axiom Schemas for Propositional Logic]\label{axi_sch:prop_logic}
+    To extend \textsc{ImpNeg} to cover propositional language, we add new axiom schemas
+    to that of Definition \ref{axi_sch:prop_logic} to handle \textit{double negation}, 
+    \textit{disjunction} and \textit{conjunction}.
+    
+    \begin{enumerate}
+        \item \Keyword{IV}: $(p \to \neg \neg p)$ and $(\neg \neg p \to q)$
+        \item \Keyword{V}: $((p \lor q) \Iff (\neg p \to q))$
+        \item \Keyword{VI}: $((p \land q) \Iff \neg(p \to \neg q)$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Proof with Assumptions]
+    Let $\Gamma$ denote the set of \Keyword{assumptions}.
+    
+    Then the existence of a proof of $\phi$ using \textit{assumptions} from $\Gamma$
+    is denoted as
+    
+    \begin{equation}
+        \Gamma \vdash \phi
+    \end{equation}
+    
+    In particular, there is a sequence
+    
+    \begin{equation}
+        \phi_0, \phi_1, \ldots, \phi_n    
+    \end{equation}
+    
+    Where $\phi = \phi_n$ and each of $\phi_i$ given $i \le n$ is either:
+    
+    \begin{enumerate}
+        \item An instance of an \textit{axiom schema}; or
+        \item An \textit{assumption} $\phi_i \in \Gamma$; or
+        \item Obtained from $\phi_j, \phi_k$ given $j, k < i$ via \textit{modus ponens}.
+    \end{enumerate}
+\end{definition}
+
+\subsection{Soundness, Completeness and Termination}
+
+To check \Keyword{soundness} of axiomatic proof systems, we check that:
+
+\begin{enumerate}
+    \item All \textit{axioms} are \textit{valid}.
+        \begin{itemize}
+            \item Check that the following holds:
+                \begin{prooftree}
+                    \AxiomC{$\phi$}
+                    \AxiomC{$(\phi \to \psi)$}
+                    \RightLabel{(Modus Ponens)}
+                    \BinaryInfC{$\psi$}
+                \end{prooftree}
+        \end{itemize}
+    \item Deduce that all \textit{provable} formulas are valid by \textit{induction}
+        on the \textit{length} of proofs, such that
+        \begin{equation}
+            \vdash \phi \implies \models \phi
+        \end{equation}
+\end{enumerate}
+
+To check \Keyword{completeness} fo axiomatic proof systems, we need to check
+that:
+
+\begin{equation}
+    \models \phi \implies \vdash \phi
+\end{equation}
+
+\begin{remark}
+    Note that axiomatic proof systems are \textit{not} guaranteed to \textit{terminate}.
+\end{remark}
