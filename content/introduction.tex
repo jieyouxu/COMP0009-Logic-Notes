@@ -155,7 +155,8 @@ respectively).
     And let $\mathcal{V}$ be the infinite set of \textit{variable symbols}.
 \end{definition}
 
-The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_bnf}.
+The grammar of first-order logic is given in Figure 
+\ref{fig:first_order_logic_bnf}.
 
 \begin{figure}[H]
     \centering
@@ -171,10 +172,12 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
     <binary-op> ::= \lit{$\land$} | \lit{$\lor$} | \lit{$\to$} | \lit{$\Iff$}
     
     <atom> ::= $p^n$ \lit{$($} <term>$_0$ \lit{,} <term>$_1$ \lit{,} 
-        $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$} \quad\text{// where $p^n \in \mathcal{P}$}
+        $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$}
+            \quad\text{// where $p^n \in \mathcal{P}$}
     
     <term> ::= $f^n$ \lit{$($} <term>$_0$ \lit{,} <term>$_1$ \lit{,} 
-            $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$} \quad\text{// where $f^n \in \mathcal{F}$}
+            $\ldots$ \lit{,} <term>$_{n-1}$ \lit{$)$}
+                \quad\text{// where $f^n \in \mathcal{F}$}
         \alt $c$ \quad\text{// where $c \in \mathcal{C}$}
         \alt $v$ \quad\text{// where $v \in \mathcal{V}$}
     \end{grammar}
@@ -183,15 +186,16 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
 \end{figure}
 
 \begin{definition}[Arity]
-    The \Keyword{arity} of a \textit{predicate symbol} or a \textit{function symbol} is the
-    \textit{number of arguments} that the predicate or function symbol takes.
+    The \Keyword{arity} of a \textit{predicate symbol} or a 
+    \textit{function symbol} is the \textit{number of arguments} that the 
+    predicate or function symbol takes.
     
     \textit{Constant symbols} are of arity $0$ since they do not take arguments.
 \end{definition}
 
 \begin{definition}[Predicate Formula]
-    There are two types of \textit{predicate formula}, as specified in the BNF of Figure 
-    \ref{fig:first_order_logic_bnf}:
+    There are two types of \textit{predicate formula}, as specified in the BNF 
+    of Figure \ref{fig:first_order_logic_bnf}:
     
     \begin{enumerate}
         \item \Keyword{Atomic} formula, of the form
@@ -212,7 +216,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
                     \mid \Exists x \colon \phi
             \end{equation}
             
-            And we can define $\Forall x \colon \phi \equiv \neg \Exists x \colon \neg \phi$.
+            And we can define
+            $\Forall x \colon \phi\equiv \neg \Exists x \colon \neg \phi$.
     \end{enumerate}
 \end{definition}
 
@@ -228,8 +233,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
     Where
     \begin{enumerate}
         \item $D$ is the \Keyword{domain}, a non-empty set; and
-        \item $\mathcal{I}$ is the valuation function which interprets \textit{constants}, 
-        \textit{functions} and \textit{predicates}.
+        \item $\mathcal{I}$ is the valuation function which interprets
+            \textit{constants}, \textit{functions} and \textit{predicates}.
     \end{enumerate}
 \end{definition}
 
@@ -241,7 +246,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
         \mathcal{I} \colon 
             &\ \mathcal{C} \to D \\
         \mathcal{I}(f) \colon 
-            &\ D^n \to D \quad\text{(iff $f \in \mathcal{F}$ is a $n$-ary function)} \\
+            &\ D^n \to D
+                \quad\text{(iff $f \in \mathcal{F}$ is a $n$-ary function)} \\
         \mathcal{I}(R) \subseteq 
             &\ D^n \quad\text{(iff $p \in \mathcal{R}$ is a $n$-ary predicate)}    
     \end{align}
@@ -254,39 +260,43 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
         \mathcal{A} \colon \mathcal{V} \to D
     \end{equation}
     
-    So that we can associate each \textit{variable} $v \in \mathcal{V}$ with a corresponding 
-    value $d \in \mathcal{D}$ of the \textit{domain}.
+    So that we can associate each \textit{variable} $v \in \mathcal{V}$ with 
+    a corresponding value $d \in \mathcal{D}$ of the \textit{domain}.
 \end{definition}
 
 \begin{definition}[Evaluating Terms]
     Let $\mathcal{S} = \Angled{D, \mathcal{I}}$ be a $L$-structure and 
-    $\mathcal{A} \colon \mathcal{V} \to D$ be variable assignment. We denote the evaluation of 
-    first-order term $\tau$ with
+    $\mathcal{A} \colon \mathcal{V} \to D$ be variable assignment. We denote the
+    evaluation of first-order term $\tau$ with
     
     \begin{equation}
         [\tau]^{\mathcal{S}, \mathcal{A}}
     \end{equation}
     
-    To mean term $\tau$ is evaluated in the $L$-structure $\mathcal{S}$ with variable 
-    assignments given by $\mathcal{A}$. It is inductively defined as
+    To mean term $\tau$ is evaluated in the $L$-structure $\mathcal{S}$ with 
+    variable assignments given by $\mathcal{A}$. It is inductively defined as
     
     \begin{align}
-        [c]^{\mathcal{S}, \mathcal{A}} &= I(c) \quad\text{(given $c \in \mathcal{C}$)} \\
-        [x]^{\mathcal{S}, \mathcal{A}} &= A(x) \quad\text{(given $x \in \mathcal{V}$)} \\
-        [f(\tau_0, \ldots, \tau_{n-1})]^{\mathcal{S}, \mathcal{A}} &=
-            I(f)([\tau_0]^{\mathcal{S}, \mathcal{A}}, \ldots, 
+        [c]^{\mathcal{S}, \mathcal{A}} 
+            &= I(c) \quad\text{(given $c \in \mathcal{C}$)} \\
+        [x]^{\mathcal{S}, \mathcal{A}} 
+            &= A(x) \quad\text{(given $x \in \mathcal{V}$)} \\
+        [f(\tau_0, \ldots, \tau_{n-1})]^{\mathcal{S}, \mathcal{A}} 
+            &= I(f)([\tau_0]^{\mathcal{S}, \mathcal{A}}, \ldots, 
                 [\tau_{n-1}]^{\mathcal{S}, \mathcal{A}})
     \end{align}
 \end{definition}
 
 \begin{remark}
-    Let $\mathcal{S}, \mathcal{A} \models \phi$ denote the interpretation of formula $\phi$ 
-    under $L$-structure $\mathcal{S}$ with variable assignment $\mathcal{A}$.
+    Let $\mathcal{S}, \mathcal{A} \models \phi$ denote the interpretation of 
+    formula $\phi$ under $L$-structure $\mathcal{S}$ with variable assignment 
+    $\mathcal{A}$.
     
     Let
     
     \begin{equation*}
-        \mathcal{S}, \mathcal{A} \models \phi \WIff \mathcal{S}, \mathcal{A} \models \psi
+        \mathcal{S}, \mathcal{A} \models \phi
+            \WIff \mathcal{S}, \mathcal{A} \models \psi
     \end{equation*}
     
     Denote that $\mathcal{S}, \mathcal{A} \models \phi$ is valid if and only if
@@ -323,12 +333,12 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
 \subsection{Validity and Satisfiability}
 
 \begin{definition}[Validity]
-    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure and $\phi$ be a
-    formula. Then
+    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure 
+    and $\phi$ be a formula. Then
     
     \begin{itemize}
-        \item $\mathcal{S} \models \phi$ \quad means $\phi$ is \Keyword{valid in structure 
-            $\mathcal{S}$} iff:
+        \item $\mathcal{S} \models \phi$ \quad means $\phi$ is
+            \Keyword{valid in structure $\mathcal{S}$} iff:
             \begin{itemize}
                 \item For \textit{all} assignments $\mathcal{A} \colon \mathcal{V} \to D$,
                     we have $\mathcal{S}, \mathcal{A} \models \phi$.
@@ -342,8 +352,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
 \end{definition}
 
 \begin{definition}[Satisfiability]
-    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure and $\phi$ be a
-    formula. Then
+    Let $\mathcal{S} \DefAs \Angled{D, \mathcal{I}}$ be an $L$-structure 
+    and $\phi$ be a formula. Then
     
     \begin{itemize}
         \item $\phi$ is \Keyword{satisfiable in $\mathcal{S}$} iff:
@@ -354,8 +364,8 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
             \end{itemize}
         \item $\phi$ is \Keyword{satisfiable} iff:
             \begin{itemize}
-                \item There is \textit{some} $L$-structure $\mathcal{S}$ in which
-                    it is \textit{satisfiable}.
+                \item There is \textit{some} $L$-structure $\mathcal{S}$ in 
+                    which it is \textit{satisfiable}.
             \end{itemize}
     \end{itemize}
 \end{definition}
