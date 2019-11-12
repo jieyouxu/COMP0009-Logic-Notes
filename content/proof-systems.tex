@@ -216,3 +216,244 @@ that:
 \begin{remark}
     Note that axiomatic proof systems are \textit{not} guaranteed to \textit{terminate}.
 \end{remark}
+
+\section{Propositional Tableaux}
+
+\begin{definition}[Tableau]
+    A \Keyword{tableau} can determine the \textit{satisfiability} of formula $\phi$,
+    by
+    
+    \begin{itemize}
+        \item \textit{Decomposing} the formula using rules until only
+            \textit{literals} remain.
+        \item A tableau will \textit{close} or not depending on the
+            nature of the \textit{literals}.
+        \begin{itemize}
+            \item If a tableau \textit{closes} then $\phi$ is \textit{unsatisfiable}.
+            \item If a tableau remains \textit{open} then $\phi$ is
+                \textit{satisfiable}.
+        \end{itemize}
+    \end{itemize}
+    
+    A \Keyword{tableau} $T$ is a \textit{binary tree} where every node is labelled
+    by a formula.
+    
+    \begin{itemize}
+        \item Initially, $T$ has only the root node labelled by the target formula
+            $\phi$ for which we are testing satisfiability.
+        \item Every non-literal formula in $T$ gets \textit{expanded} and
+            \textit{ticked}.
+        \item If a \textit{branch} of $T$ contains both the literal $\psi$ 
+            \textit{and} its negation $\neg \psi$ then the branch \textit{closes};
+            otherwise, the branch remains \textit{open}.
+        \item If \textit{every} branch of $T$ is \textit{closed} then $T$
+            \textit{closes}; otherwise, $T$ remains \textit{open}.
+    \end{itemize}
+\end{definition}
+
+\subsection{Tableau Expansion Rules}
+
+There are two types of expansion rules for Propositional Tableaux.
+
+\begin{definition}[$\alpha$-Formula Expansion]
+    $\alpha$-formulas are formulas with \textit{conjunction} as the main connective,
+    either directly or by expansion:
+    
+    \begin{enumerate}
+        \item $(\phi \land \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$(\phi \land \psi) \checkmark$
+                        [$\phi$
+                            [$\psi$]
+                        ]
+                    ]
+                \end{forest}
+            \end{equation}
+            $(\phi \land \psi)$ is true iff $\phi$ and $\psi$ are both true.
+            We add new nodes labelled by $\phi$ and $\psi$ respectively at
+            \textit{every leaf} in $T$ that is \textit{below} the current node
+            $(\phi \land \psi)$.
+        \item $\neg \neg \phi$
+            \begin{equation}
+                \begin{forest}
+                    [$(\neg \neg \phi) \checkmark$
+                        [$\phi$]
+                    ]
+                \end{forest}
+            \end{equation}
+        \item $\neg (\phi \lor \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$\neg (\phi \land \psi) \checkmark$
+                        [$\neg \phi$
+                            [$\neg \psi$]
+                        ]
+                    ]
+                \end{forest}
+            \end{equation}
+            De Morgan's law. $\neg (\phi \lor \psi) \equiv \neg \phi \land \neg \psi$.
+        \item $\neg (\phi \to \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$\neg (\phi \to \psi) \checkmark$
+                        [$\phi$
+                            [$\neg \psi$]
+                        ]
+                    ]
+                \end{forest}
+            \end{equation}
+            $\neg (\phi \to \psi) 
+                \equiv \neg (\neg \phi \lor \psi)
+                \equiv \phi \land \neg \psi$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[$\beta$-Formula Expansion]
+    $\beta$-formulas are formulas with \textit{disjunction} as the main connective,
+    either directly or by expansion:
+    
+    \begin{enumerate}
+        \item $(\phi \lor \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$(\phi \lor \psi) \checkmark$
+                        [$\phi$]
+                        [$\psi$]
+                    ]
+                \end{forest}
+            \end{equation}
+            $(\psi \lor \psi)$ is true if either of $\phi$ or $\psi$ is true,
+            without needing both of them to be true. Hence, we create two
+            branches to match such possibility. The two branches are to be
+            added under \textit{every leaf} of $T$ \textit{below} the current 
+            node $(\phi \lor \psi)$.
+        \item $\neg (\phi \lor \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$\neg (\phi \land \psi) \checkmark$
+                        [$\neg \phi$]
+                        [$\neg \psi$]
+                    ]
+                \end{forest}
+            \end{equation}
+            De Morgan's law. $\neg (\phi \land \psi)
+            \equiv \neg \phi \lor \neg \psi$.
+        \item $(\phi \to \psi)$
+            \begin{equation}
+                \begin{forest}
+                    [$(\phi \to \psi) \checkmark$
+                        [$\neg \phi$]
+                        [$\psi$]
+                    ]
+                \end{forest}
+            \end{equation}
+            $(\phi \to \psi) \equiv \neg \phi \lor \psi$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Closed Tableau]
+    If $\phi$ is at the \textit{root} of a \textit{closed tableau}, then
+    $\phi$ is \textit{unsatisfiable}.
+\end{definition}
+
+\begin{remark}
+    If $\phi$ is at the root of an open tableau, it does not necessarily
+    mean that it is satisfiable; $\phi$ may not yet be full expanded
+    where every node in tableau $T$ is either a literal or ticked.
+    
+    \begin{equation*}
+        \begin{forest}
+            [$((\phi \land \neg \phi) \lor (\psi \and \neg \psi)) \checkmark$
+                [$(\phi \land \neg \phi)$]
+                [$(\psi \and \neg \psi)$]
+            ]
+        \end{forest}
+    \end{equation*}
+    
+    Note that even though $((\phi \land \neg \phi) \lor (\psi \and \neg \psi))$
+    is at the root of an open tableau, because its left and right sub trees
+    are not full expanded to completion, it cannot yet be considered
+    satisfiable.
+\end{remark}
+
+\begin{definition}[Complete Tableau]
+    A \textit{tableau} $T$ is \Keyword{complete} iff \textit{every} node is
+    either:
+    
+    \begin{enumerate}
+        \item \textit{Ticked} $\checkmark$ (\textit{expanded}); or
+        \item A \textit{literal}.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Complete Open Tableau]
+    If $\phi$ is the \textit{root} of an \Keyword{complete open} tableau,
+    then $\phi$ is \textit{satisfiable}.
+\end{definition}
+
+\begin{remark}
+    Since a proof system is interested in \textit{validity} and not just
+    satisfiability, we can exploit the negation of a formula to test for
+    validity:
+    
+    \begin{align}
+        \phi \Stext{satisfiable} &\WIff \neg \phi \Stext{invalid} \\
+        \phi \Stext{valid} &\WIff \neg \phi \Stext{unsatisfiable}
+    \end{align}
+    
+    Hence, we can test the validity of $\phi$ by checking if the tableau
+    for $\neg \phi$ closes. If the tableau for $\neg \phi$ closes,
+    then $\neg \phi$ is \textit{unsatisfiable} and thus $\phi$ is 
+    \textit{valid}.
+    
+    We can use $\bigoplus$ to denote that a branch \textit{closes}.
+\end{remark}
+
+\subsection{Tableau and Disjunctive Normal Form (DNF)}
+
+\begin{definition}[Disjunctive Normal Form (DNF)]
+    A formula is in \Keyword{disjunctive normal form} (\textbf{DNF}) iff
+    it is a \textit{disjunction} of one or more clauses, where each
+    clause is a \textit{conjunction} of one or more literals.
+    
+    \begin{figure}[H]
+        \centering
+        \begin{grammar}
+        <disjunction> ::= \lit{$($} <conjunction> \lit{$\lor$} 
+                <disjunction> \lit{$)$}
+            \alt <conjunction>
+        
+        <conjunction> ::= \lit{$($} <literal> \lit{$\lor$} 
+                <conjunction> \lit{$)$}
+            \alt <literal>
+        
+        <literal> ::= \lit{$\neg$} $v$ 
+                \quad\text{// where $v \in \mathcal{V}$}
+            \alt $v$
+                \quad\text{// where $v \in \mathcal{V}$}
+        \end{grammar}
+        \caption{BNF Grammar for Disjunctive Normal Form (DNF).}
+        \label{fig:dnf_bnf}
+    \end{figure}
+\end{definition}
+
+\begin{definition}[Tableau to DNF Conversion]
+    We can use a \textit{tableau} to find a \textit{DNF equivalent} for
+    some formula $\phi$.
+    
+    \begin{enumerate}
+        \item Place $\phi$ at \textit{root} of a new tableau $T$.
+        \item \textit{Completely expand} $T$.
+        \item For \textit{every open} branch $\Theta$ in $T$, let
+            clause $C_\Theta$ be defined as the conjunction of
+            the literals $l_i \in \Theta$
+            \begin{equation}
+                C_\Theta = \bigwedge \Set{ l_i }
+            \end{equation}
+        \item Then the DNF equivalent $\phi'$ of $\phi$ is simply
+            \begin{equation}
+                \phi' \equiv \bigvee \limits_{\text{open branches } \Theta} C_\Theta
+            \end{equation}
+    \end{enumerate}
+\end{definition}
