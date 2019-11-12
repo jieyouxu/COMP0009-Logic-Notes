@@ -222,24 +222,100 @@ The grammar of first-order logic is given in Figure \ref{fig:first_order_logic_b
     A \Keyword{first-order structure} or a \Keyword{$L$-structure} is a 2-tuple
     
     \begin{equation}
-        L\text{-structure} \DefAs \Angled{D, I}
+        L\text{-structure} \DefAs \Angled{D, \mathcal{I}}
     \end{equation}
     
     Where
     \begin{enumerate}
         \item $D$ is the \Keyword{domain}, a non-empty set; and
-        \item $I$ is the valuation function which interprets \textit{constants}, \textit{functions}
-            and \textit{predicates}.
+        \item $\mathcal{I}$ is the valuation function which interprets \textit{constants}, 
+        \textit{functions} and \textit{predicates}.
     \end{enumerate}
 \end{definition}
 
-\begin{definition}[Interpretation Function (Valuation)]
-    The type of the \Keyword{interpretation function} or \Keyword{valuation} $I$ which interprets
+\begin{definition}[Interpretation]
+    The type of the \Keyword{interpretation} $\mathcal{I}$ which interprets
     \textit{constants}, \textit{functions} and \textit{predicates} is given as
     
     \begin{align}
-        I    \colon &\ \mathcal{C} \to D \\
-        I(f) \colon &\ D^n \to D \quad\text{(iff $f \in \mathcal{F}$ is a $n$-ary function)} \\
-        I(R) \subseteq &\ D^n \quad\text{(iff $p \in \mathcal{R}$ is a $n$-ary predicate)}    
+        \mathcal{I} \colon 
+            &\ \mathcal{C} \to D \\
+        \mathcal{I}(f) \colon 
+            &\ D^n \to D \quad\text{(iff $f \in \mathcal{F}$ is a $n$-ary function)} \\
+        \mathcal{I}(R) \subseteq 
+            &\ D^n \quad\text{(iff $p \in \mathcal{R}$ is a $n$-ary predicate)}    
+    \end{align}
+\end{definition}
+
+\begin{definition}[Variable Assignment]
+    We define the \Keyword{variable assignment} function
+    
+    \begin{equation}
+        \mathcal{A} \colon \mathcal{V} \to D
+    \end{equation}
+    
+    So that we can associate each \textit{variable} $v \in \mathcal{V}$ with a corresponding 
+    value $d \in \mathcal{D}$ of the \textit{domain}.
+\end{definition}
+
+\begin{definition}[Evaluating Terms]
+    Let $\mathcal{S} = \Angled{D, \mathcal{I}}$ be a $L$-structure and 
+    $\mathcal{A} \colon \mathcal{V} \to D$ be variable assignment. We denote the evaluation of 
+    first-order term $\tau$ with
+    
+    \begin{equation}
+        [\tau]^{\mathcal{S}, \mathcal{A}}
+    \end{equation}
+    
+    To mean term $\tau$ is evaluated in the $L$-structure $\mathcal{S}$ with variable 
+    assignments given by $\mathcal{A}$. It is inductively defined as
+    
+    \begin{align}
+        [c]^{\mathcal{S}, \mathcal{A}} &= I(c) \quad\text{(given $c \in \mathcal{C}$)} \\
+        [x]^{\mathcal{S}, \mathcal{A}} &= A(x) \quad\text{(given $x \in \mathcal{V}$)} \\
+        [f(\tau_0, \ldots, \tau_{n-1})]^{\mathcal{S}, \mathcal{A}} &=
+            I(f)([\tau_0]^{\mathcal{S}, \mathcal{A}}, \ldots, 
+                [\tau_{n-1}]^{\mathcal{S}, \mathcal{A}})
+    \end{align}
+\end{definition}
+
+\begin{remark}
+    Let $\mathcal{S}, \mathcal{A} \models \phi$ denote the interpretation of formula $\phi$ 
+    under $L$-structure $\mathcal{S}$ with variable assignment $\mathcal{A}$.
+    
+    Let
+    
+    \begin{equation*}
+        \mathcal{S}, \mathcal{A} \models \phi \WIff \mathcal{S}, \mathcal{A} \models \psi
+    \end{equation*}
+    
+    Denote that $\mathcal{S}, \mathcal{A} \models \phi$ is true if and only if
+    $\mathcal{S}, \mathcal{A} \models \psi$ is true.
+\end{remark}
+
+\begin{definition}[Evaluating Formulas]
+    Then formulas can be evaluated inductively, with
+    
+    \begin{align}
+        \mathcal{S}, \mathcal{A} \models \neg \phi 
+            &\WIff \mathcal{S}, \mathcal{A} \not\models \phi \\
+        \mathcal{S}, \mathcal{A} \models (\phi \land \psi)
+            &\WIff \mathcal{S}, \mathcal{A} \models \phi
+                \Stext{and} \mathcal{S}, \mathcal{A} \models \phi \\
+        \mathcal{S}, \mathcal{A} \models (\phi \lor \psi)
+            &\WIff \mathcal{S}, \mathcal{A} \models \phi
+                \Stext{or} \mathcal{S}, \mathcal{A} \models \phi \\
+        \mathcal{S}, \mathcal{A} \models R(\tau_0, \dots, \tau_{n-1})
+            &\WIff \left(
+                [\tau_0]^{\mathcal{S}, \mathcal{A}},
+                \ldots, 
+                [\tau_{n-1}]^{\mathcal{S}, \mathcal{A}} 
+            \right) \in \mathcal{I}(R) \quad\text{(iff $R \in \mathcal{P}$)} \\
+        \mathcal{S}, \mathcal{A} \models \Exists \phi
+            &\WIff \mathcal{S}, \mathcal{A}[x \mapsto d] \models \phi 
+            \Stext{for some} d \in D \\
+        \mathcal{S}, \mathcal{A} \models \Forall \phi
+            &\WIff \mathcal{S}, \mathcal{A}[x \mapsto d] \models \phi
+            \Stext{for all} d \in D
     \end{align}
 \end{definition}
