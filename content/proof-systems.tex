@@ -445,15 +445,19 @@ There are two types of expansion rules for Propositional Tableaux.
     \begin{enumerate}
         \item Place $\phi$ at \textit{root} of a new tableau $T$.
         \item \textit{Completely expand} $T$.
-        \item For \textit{every open} branch $\Theta$ in $T$, let
-            clause $C_\Theta$ be defined as the conjunction of
-            the literals $l_i \in \Theta$
+        \item For \textit{every open} branch $\Theta_i$ in $T$, let
+            clause $\mathbf{C}_i$ be defined as the conjunction of the 
+            $m$ literals $\mathbf{L}_i = \Set{ l_1, \ldots, l_m }$ in 
+            $\Theta_i$
             \begin{equation}
-                C_\Theta = \bigwedge \Set{ l_i }
+                \mathbf{C}_i = \bigwedge \mathbf{L}_i
             \end{equation}
-        \item Then the DNF equivalent $\phi'$ of $\phi$ is simply
+        \item Then the DNF equivalent $\phi'$ of $\phi$ is simply the 
+        disjunction of all the clauses 
+        $\mathbf{C} = \Set{ \mathbf{C}_1, \ldots, \mathbf{C}_n }$
+        formed from the $n$ open branches $\Theta_1, \ldots, \Theta_n$.
             \begin{equation}
-                \phi' \equiv \bigvee \limits_{\text{open branches } \Theta} C_\Theta
+                \phi' \equiv \bigvee \mathbf{C}
             \end{equation}
     \end{enumerate}
 \end{definition}
