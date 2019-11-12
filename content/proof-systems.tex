@@ -40,3 +40,92 @@
         \models \phi \implies \vdash \phi
     \end{equation}
 \end{definition}
+
+\section{Axiomatic Proof Systems}
+
+Let us define a simple language \textsc{ImpNeg} based on a subset of propositional language.
+
+\begin{definition}[\textsc{ImpNeg}]
+    Let \textsc{ImpNeg} be a propositional language with only
+    
+    \begin{enumerate}
+        \item \Keyword{Implication} $\to$; and
+        \item \Keyword{Negation} $\neg$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[\textsc{ImpNeg} Axiom Schemas]\label{axi_sch:imp_neg}
+    From the definition of \textsc{ImgNeg}, we can derive three axiom schemas:
+    
+    \begin{itemize}
+        \item \Keyword{I}: $(\phi \to (\psi \to \phi))$.
+        \item \Keyword{II}: $((\phi \to (\psi \to \kappa)) \to 
+            ((\phi \to \psi) \to (\phi \to \kappa)))$.
+        \item \Keyword{III}: $((\neg \phi \to \neg \psi) \to (\psi \to \phi))$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Axiom]
+    An \Keyword{axiom} can be obtained from \textit{substituting} any formulas
+    in the places of $\phi$, $\psi$ and $\kappa$ from the schemas.
+\end{definition}
+
+\begin{definition}[Inference Rule]
+    An \Keyword{inference rule} allows us to obtain a \Keyword{conclusion} from
+    $n$ number of \Keyword{premises}; it has the form
+    
+    \begin{figure}[H]
+        \centering
+        \begin{prooftree}
+            \AxiomC{$\phi_1$}
+            \AxiomC{$\phi_2$}
+            \AxiomC{$\ldots$}
+            \AxiomC{$\phi_n$}
+            \RightLabel{(Name of Inference Rule)}
+            \QuaternaryInfC{$\psi$}
+        \end{prooftree}
+        \caption{Form of Inference Rules. Any $\phi_i$ is a \textit{premise} and $\psi$ 
+            is the \textit{conclusion}.}
+        \label{fig:inference_rule}
+    \end{figure}
+\end{definition}
+
+\begin{definition}[Modus Ponens]
+    A typical \textit{inference rule} is \Keyword{modus ponens}, given by
+    
+    \begin{figure}[H]
+        \centering
+        \begin{prooftree}
+            \AxiomC{$\phi$}
+            \AxiomC{$(\phi \to \psi)$}
+            \RightLabel{(Modus Ponens)}
+            \BinaryInfC{$\psi$}
+        \end{prooftree}
+        \caption{Modus Ponens. When both $\phi$ and $(\phi \to \psi)$ has been proved
+            then $\psi$ can be derived.}
+        \label{fig:modus_ponens}
+    \end{figure}
+\end{definition}
+
+\begin{definition}[Proof]
+    A \Keyword{proof} is then a \textit{sequence} of formulas
+    
+    \begin{equation}
+        \phi_0, \phi_1, \ldots, \phi_n
+    \end{equation}
+    
+    Such that for formulas $\phi_i$ with $i \le n$, $\phi_i$ is either:
+    \begin{enumerate}
+        \item An instance of an \textit{axiom}; or
+        \item Derived by \textit{modus ponens} from $\phi_j$, $\phi_k$ for some $j, k < i$.
+            \begin{itemize}
+                \item For instance, if $\phi_k = (\phi_j \to \phi_i)$.
+            \end{itemize}
+    \end{enumerate}
+    
+    Given that such proof exists, then $\phi_n$ is a \Keyword{theorem} and may be denoted
+    as
+    \begin{equation}
+        \vdash \phi_n
+    \end{equation}
+\end{definition}
