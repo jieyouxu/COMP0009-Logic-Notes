@@ -1,0 +1,42 @@
+\chapter{Proof Systems}
+
+\begin{definition}[Proof System]
+    A \Keyword{proof system} is used to determine the \textit{validity} of formulas.
+\end{definition}
+
+\begin{remark}
+    A trivial system would be to generate the truth table for some formula $\phi$ and
+    check all rows yield $\top$. But for $n$ variables we will need $2^n$ rows which
+    explodes exponentially.
+    
+    Thus, we need another system, which analyzes the syntax of the formula to
+    determine its validity.
+    
+    Changes on syntactical level may not be semantics-preserving. To ensure that
+    syntactical transformations are semantics-preserving, it is critical that the
+    proof system used is both \Keyword{sound} and \Keyword{complete}.
+    
+    Let
+    \begin{itemize}
+        \item $\models \phi$ \quad denote $\phi$ is \textit{valid}.
+        \item $\vdash \phi$ \quad denote there exists a \textit{proof} of $\phi$.
+    \end{itemize}
+\end{remark}
+
+\section{Soundness and Completeness}
+
+\begin{definition}[Soundness]
+    A proof system is \Keyword{sound} iff it can \textit{only} prove \textit{valid} formulas.
+    
+    \begin{equation}
+        \vdash \phi \implies \models \phi
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Completeness]
+    If a formula is \textit{valid}, then the proof system \textit{can} prove it.
+    
+    \begin{equation}
+        \models \phi \implies \vdash \phi
+    \end{equation}
+\end{definition}
